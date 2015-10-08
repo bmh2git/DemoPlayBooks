@@ -1,0 +1,22 @@
+---
+- name: Create Schedule Demo Group and Server
+  hosts: all 
+  gather_facts: true 
+  tasks:
+    - name: Create Demo group
+      clc_group:
+        location: VA1
+        name: "SchedDemo"
+      register: clc_grp
+    - debug: var=clc_grp
+
+    - name: Create Demo Server
+      clc_server:
+        name: "dmotst"
+        password: $rtGH78!vbn 
+        location: VA1
+        template: ubuntu-14-64
+        count: 1
+        group: "{{ clc_grp.group.name }}"
+      register: clc_svr
+    - debug: var=clc_svr

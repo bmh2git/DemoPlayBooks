@@ -1,0 +1,31 @@
+---
+- name: Deploy REST servcie
+  hosts: all 
+  gather_facts: False
+  tasks:
+    - name: Install git
+      apt: 
+        name: git
+        update_cache: True
+        state: present
+
+    - name: Install Software
+      sudo: True
+      git:
+        repo: https://github.com/bmh2git/RESTApp.git
+        dest: /App
+
+    - name: Install pip  software
+      apt:
+        name: python-pip
+        update_cache: True
+        state: present
+
+    - name: Install flask
+      pip:
+        name: flask
+        state: present
+
+    - name: Launch Software
+      sudo: True
+      shell: nohup python /App/src/SimpleREST.py &

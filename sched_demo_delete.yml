@@ -1,0 +1,12 @@
+---
+- name: Delete Schedule Demo Group and Server
+  hosts: all
+  gather_facts: False
+  connection: local
+  tasks:
+    - name: Delete Demo Group
+      clc_group:
+        location: VA1
+        name: "SchedDemo"
+        state: absent
+        
